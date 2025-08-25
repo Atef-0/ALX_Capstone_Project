@@ -1,5 +1,5 @@
 from django.core.cache import cache
-from .models import Review
+from .models import Review, Movie
 from django.conf import settings
 import requests
 
@@ -32,4 +32,31 @@ class OMDbService:
             print(f"Error retrieving data from OMDb API: {e}")
             return None
         
+    
+    @classmethod
+    def get_or_create_movie(cls, title):
+        try:
+            movie = Movie.objects.get(title__iexact=title)
+            return movie, False
+        except Movie.DoesNotExist:
+            pass
+
+        movie_data = cls.movie_search(title)
+        if not movie_data or 'Error' in movie_data:
+            return None, False
         
+        movie = Movie(
+            title=movie_data.get('Title'),
+            year=movie_data.get('Year'),
+            rated=movie_data.get('Rated'),
+            released=movie_data.get('Released'),
+            genre=movie_data.get('Genre'),
+            director=movie_data.get('Director'),
+            language=movie_data.get('Language'),
+            poster_url=movie_data.get('Poster'),
+            imdb_id=movie_data.get('imdbID'),
+            type=movie_data.get('Type'),
+        )
+        movie.save()
+        return movie, True
+    
