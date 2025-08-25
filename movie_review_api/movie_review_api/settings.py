@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 from decouple import config
 SECRET_KEY = config('SECRET_KEY')
 OMDb_API_KEY = config('OMDB_API_KEY')
+OMDb_URL = "http://www.omdbapi.com/"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
