@@ -1,0 +1,11 @@
+# Ignore .env files in any subdirectory
+**/.env
+**/.env.*
+*.env
+
+# Django specific (for all projects)
+**/db.sqlite3
+**/__pycache__/
+**/*.pyc
+**/media/
+**/uploads/
