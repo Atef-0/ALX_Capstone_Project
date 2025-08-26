@@ -49,11 +49,11 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class ReviewListSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-    movie_id = serializers.PrimaryKeyRelatedField(queryset=Movie.objects.all(), source='movie', write_only=True)
+    movie = MovieSerializer(read_only=True)
 
     class Meta:
         model = Review
-        fields = ['id', 'user', 'rating', 'review_content', 'created_at', 'movie_id']
+        fields = ['id', 'user', 'movie', 'rating', 'review_content', 'created_at']
         read_only_fields = ['id', 'user', 'created_at']
 
 class ReviewUpdateSerializer(serializers.ModelSerializer):
@@ -62,6 +62,6 @@ class ReviewUpdateSerializer(serializers.ModelSerializer):
         fields = ['rating', 'review_content']
 
     def validate_rating(self, value):
-        if 1> value >10:
+        if value < 1 or value > 10:
             raise serializers.ValidationError("Rating must be between 1 and 10.")
         return value

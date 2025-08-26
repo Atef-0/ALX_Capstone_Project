@@ -8,8 +8,15 @@ class OMDbService:
     BASE_URL = settings.OMDb_URL
     API_KEY = settings.OMDb_API_KEY
 
+    @staticmethod
+    def validate_year(year):
+        year_int = int(year)
+        if year_int and 1800 <= int(year) <= 2100:
+            return True
+        return False
+
     @classmethod
-    def movie_search(cls, title):
+    def movie_search(cls, title, *args, **kwargs):
         cache_key = f"omdb_search_{title.lower()}"
         cached_data = cache.get(cache_key)
         if cached_data:
@@ -21,6 +28,10 @@ class OMDbService:
             'type': 'movie'
         }
 
+        year = kwargs.get('year')
+        if year and cls.validate_year(year):
+            params['y'] = year
+
         try:
             response = requests.get(cls.BASE_URL, params = params)
             response.raise_for_status()
@@ -28,6 +39,7 @@ class OMDbService:
             if data.get('Response') == 'False':
                 return f"Movie not found: {data.get('Error')}"
             cache.set(cache_key, data, timeout=3600)
+            return data
         except requests.RequestException as e:
             print(f"Error retrieving data from OMDb API: {e}")
             return None
@@ -49,7 +61,6 @@ class OMDbService:
             title=movie_data.get('Title'),
             year=movie_data.get('Year'),
             rated=movie_data.get('Rated'),
-            released=movie_data.get('Released'),
             genre=movie_data.get('Genre'),
             director=movie_data.get('Director'),
             language=movie_data.get('Language'),

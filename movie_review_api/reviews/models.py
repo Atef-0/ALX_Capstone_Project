@@ -15,16 +15,14 @@ class Movie(models.Model):
     language = models.CharField(max_length=50, blank=True, null=True)
     rated = models.CharField(max_length=10, blank=True, null=True)
     director = models.CharField(max_length=100, blank=True, null=True)
+    type = models.CharField(max_length=50, blank=True, null=True)
     def __str__(self):
         return self.title
     
 class Review(models.Model):
     movie = models.ForeignKey(Movie, related_name='reviews', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='reviews', on_delete=models.CASCADE)
-    rating = models.PositiveSmallIntegerField(validators=[
-        MinValueValidator(1),
-        MaxValueValidator(10)
-    ])
+    rating = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     review_content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
