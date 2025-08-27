@@ -8,7 +8,6 @@ class Movie(models.Model):
     title = models.CharField(max_length=255, unique=True, db_index=True)
     genre = models.CharField(max_length=100)
     year = models.CharField(max_length=12)
-    director = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     poster_url = models.URLField(max_length=500, blank=True, null=True)
     imdb_id = models.CharField(max_length=20, unique=True, blank=True, null=True)
