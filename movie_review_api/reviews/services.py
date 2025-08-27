@@ -3,10 +3,9 @@ from .models import Review, Movie
 from django.conf import settings
 import requests
 
-
 class OMDbService:
-    BASE_URL = settings.OMDb_URL
-    API_KEY = settings.OMDb_API_KEY
+    BASE_URL = settings.OMDB_URL
+    API_KEY = settings.OMDB_API_KEY
 
     @staticmethod
     def validate_year(year):

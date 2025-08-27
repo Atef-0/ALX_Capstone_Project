@@ -19,10 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-from decouple import config
-SECRET_KEY = config('SECRET_KEY')
-OMDb_API_KEY = config('OMDB_API_KEY')
-OMDb_URL = "http://www.omdbapi.com/"
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -118,6 +115,12 @@ USE_I18N = True
 USE_TZ = True
 
 
+from decouple import config
+SECRET_KEY = config('SECRET_KEY')
+OMDB_API_KEY = config('OMDB_API_KEY')
+OMDB_URL = 'http://www.omdbapi.com/'
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
@@ -150,7 +153,4 @@ SIMPLE_JWT = {
 }
 # CORS Configuration
 CORS_ALLOW_ALL_ORIGINS = True
-
-
-
 
