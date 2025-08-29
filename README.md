@@ -88,5 +88,5 @@ class Review(models.Model):
 - User profiles with activity stats
 
 ---
-Built with ❤️ using Django REST Framework.
+
 
