@@ -56,17 +56,17 @@ class OMDbService:
         if not movie_data or 'Error' in movie_data:
             return None, False
         
-        movie = Movie(
-            title=movie_data.get('Title'),
-            year=movie_data.get('Year'),
-            rated=movie_data.get('Rated'),
-            genre=movie_data.get('Genre'),
-            director=movie_data.get('Director'),
-            language=movie_data.get('Language'),
-            poster_url=movie_data.get('Poster'),
+        movie, created = Movie.objects.get_or_create(
             imdb_id=movie_data.get('imdbID'),
-            type=movie_data.get('Type'),
+            defaults={
+                'title': movie_data.get('Title'),
+                'genre': movie_data.get('Genre'),
+                'director': movie_data.get('Director'),
+                'language': movie_data.get('Language'),
+                'poster_url': movie_data.get('Poster'),
+                'type': movie_data.get('Type'),
+                'year': movie_data.get('Year'),
+            }
         )
-        movie.save()
-        return movie, True
+        return movie, created
     
