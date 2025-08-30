@@ -9,3 +9,12 @@
 **/*.pyc
 **/media/
 **/uploads/
+
+db.sqlite3
+__pycache__/
+*.pyc
+media/
+uploads/
+# Ignore environment variable files
+.env
+.env.*
