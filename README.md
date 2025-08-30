@@ -17,37 +17,24 @@ Perfect for:
 - Per-user review management (users can only edit/delete their own reviews)
 - Clean RESTful API structure
 
-## 🖥️ Demo Requests
-### Search Movies
-`GET /api/movies/search/?title=Inception`
+## 🔑 Accounts (Users)
+- **Register** → `POST https://mohammedbadran.pythonanywhere.com/api/users/register/`
+- **Login** → `POST https://mohammedbadran.pythonanywhere.com/api/users/login/`
+- **Refresh Token** → `POST https://mohammedbadran.pythonanywhere.com/api/users/token/refresh/`
+- **Logout** → `POST https://mohammedbadran.pythonanywhere.com/api/users/logout/`
+- **Me** → `GET https://mohammedbadran.pythonanywhere.com/api/users/me/`
 
-### Get Movie Details
-`GET /api/movies/<imdb_id>/`
+## 🎬 Movies
+- **Search (example Batman)** → `GET https://mohammedbadran.pythonanywhere.com/api/movies/search/?title=superman`
+- **List** → `GET https://mohammedbadran.pythonanywhere.com/api/movies/`
+- **Detail** → `GET https://mohammedbadran.pythonanywhere.com/api/movies/1/`
 
-### Create Review
-`POST /api/reviews/`
-```json
-{
-  "movie": "tt1375666",
-  "rating": 5,
-  "comment": "A mind-bending masterpiece!"
-}
-```
-
-### Update Review
-`PUT /api/reviews/<id>/`
-```json
-{
-  "rating": 4,
-  "comment": "Rewatched — still amazing!"
-}
-```
-
-### Delete Review
-`DELETE /api/reviews/<id>/`
-
-### List User Reviews
-`GET /api/reviews/`
+## 📝 Reviews
+- **List Reviews** → `GET https://mohammedbadran.pythonanywhere.com/api/reviews/`
+- **Create Review** → `POST https://mohammedbadran.pythonanywhere.com/api/reviews/`
+- **Get Review by ID** → `GET https://mohammedbadran.pythonanywhere.com/api/reviews/1/`
+- **Update Review (full)** → `PUT https://mohammedbadran.pythonanywhere.com/api/reviews/1/`
+- **Delete Review** → `DELETE https://mohammedbadran.pythonanywhere.com/api/reviews/1/`
 
 ## ⚡ Quick Start (Windows/Linux/Mac)
 ```bash
@@ -70,17 +57,6 @@ class Review(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 ```
 
-## 📝 API Reference
-| Method | Path                  | Auth | Description               |
-|--------|-----------------------|------|---------------------------|
-| GET    | /api/movies/search/   | ❌   | Search movies by title    |
-| GET    | /api/movies/<imdb_id>/| ❌   | Movie details             |
-| GET    | /api/reviews/         | ✅   | List user’s reviews       |
-| POST   | /api/reviews/         | ✅   | Create new review         |
-| GET    | /api/reviews/<id>/    | ✅   | Get specific review       |
-| PUT    | /api/reviews/<id>/    | ✅   | Update a review           |
-| DELETE | /api/reviews/<id>/    | ✅   | Delete a review           |
-
 ## 🛣️ Future Enhancements
 - OpenAPI/Swagger documentation
 - Review likes & comments
@@ -88,5 +64,3 @@ class Review(models.Model):
 - User profiles with activity stats
 
 ---
-
-
